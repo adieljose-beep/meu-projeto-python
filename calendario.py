@@ -1,33 +1,5 @@
-"""Funções para cálculos de idade e intervalos entre datas."""
+"""Interface simples para os cálculos de idade e dias."""
 
-from datetime import date
+from linha_do_tempo import calcular_idade, dias_ate, dias_desde
 
-
-def calcular_idade(data_nascimento: date, hoje: date | None = None) -> int:
-    """Retorna a idade em anos completos na data ``hoje`` (ou na data atual)."""
-    hoje = hoje or date.today()
-    if data_nascimento > hoje:
-        raise ValueError("A data de nascimento não pode estar no futuro.")
-
-    idade = hoje.year - data_nascimento.year
-    aniversario_ja_ocorreu = (hoje.month, hoje.day) >= (
-        data_nascimento.month,
-        data_nascimento.day,
-    )
-    return idade if aniversario_ja_ocorreu else idade - 1
-
-
-def dias_ate(data_futura: date, hoje: date | None = None) -> int:
-    """Retorna quantos dias faltam até uma data futura (hoje retorna zero)."""
-    hoje = hoje or date.today()
-    if data_futura < hoje:
-        raise ValueError("A data informada deve ser hoje ou uma data futura.")
-    return (data_futura - hoje).days
-
-
-def dias_desde(data_passada: date, hoje: date | None = None) -> int:
-    """Retorna quantos dias se passaram desde uma data passada (hoje retorna zero)."""
-    hoje = hoje or date.today()
-    if data_passada > hoje:
-        raise ValueError("A data informada deve ser hoje ou uma data passada.")
-    return (hoje - data_passada).days
+__all__ = ["calcular_idade", "dias_ate", "dias_desde"]
